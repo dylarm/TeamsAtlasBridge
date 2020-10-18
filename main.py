@@ -46,14 +46,14 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         elif file_type == INPUT_TEAMS_FILE:
             initial_filter = "CSV File (*.csv)"
             file_filter += f";;{initial_filter}"
-        file_path = QtWidgets.QFileDialog.getOpenFileName(
+        file_path = Path(QtWidgets.QFileDialog.getOpenFileName(
             self,
             caption,
             str(Path().home()),
             filter=file_filter,
             initialFilter=initial_filter,
             options=options,
-        )
+        )[0])
         if type == INPUT_STUDENT_FILE:
             self.student_file = file_path
         elif type == INPUT_TEAMS_FILE:
@@ -67,8 +67,8 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 
     def dropEvent(self, event: QtGui.QDropEvent) -> None:
         for url in event.mimeData().urls():
-            path = url.toLocalFile()
-            if Path(path).is_file():
+            path = Path(url.toLocalFile())
+            if path.is_file():
                 print(path)
                 print(f"Position: {event.pos()}")
                 print(f"Source: {event.source()}")
