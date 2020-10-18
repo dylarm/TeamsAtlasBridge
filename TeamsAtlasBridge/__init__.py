@@ -11,7 +11,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.__setup_drop()
         self.__setup_buttons()
         self.__debug_print()
 
@@ -21,10 +20,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         print(self.frame_student_xlsx.pos())
         print(self.frame_student_xlsx.size())
         print(self.frame_student_xlsx.geometry())
-
-    def __setup_drop(self):
-        # TODO: Find a way of having a specific dropEvent for the buttons/frames?
-        pass
 
     def __setup_buttons(self):
         self.button_input_students.clicked.connect(
