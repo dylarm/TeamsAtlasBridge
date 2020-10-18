@@ -23,3 +23,4 @@ class QFrameDragDrop(QtWidgets.QFrame):
 
     def dropEvent(self, event: QtGui.QDropEvent) -> None:
         self.file_path = Path(event.mimeData().urls()[0].toLocalFile())
+        self.findChild(QtWidgets.QPushButton).setText(self.file_path.name)
