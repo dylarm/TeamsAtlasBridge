@@ -35,11 +35,24 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         )
 
     def _choose_dir(self, file_type: int = 0) -> None:
-        # options = QtWidgets.QFileDialog.Options()
-        # options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
         caption = f"Choose {file_type} file"
+        file_filter: str = "All files (*.*)"
+        initial_filter = file_filter
+        if file_type == INPUT_STUDENT_FILE:
+            initial_filter = "Excel Workbook (*.xlsx)"
+            file_filter += f";;{initial_filter}"
+        elif file_type == INPUT_TEAMS_FILE:
+            initial_filter = "CSV File (*.csv)"
+            file_filter += f";;{initial_filter}"
         file_path = QtWidgets.QFileDialog.getOpenFileName(
-            self, caption, str(Path().home())
+            self,
+            caption,
+            str(Path().home()),
+            filter=file_filter,
+            initialFilter=initial_filter,
+            options=options,
         )
         if type == INPUT_STUDENT_FILE:
             self.student_file = file_path
