@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def add_method(cls):
     """
     Helper decorator to add methods to classes

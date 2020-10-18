@@ -47,14 +47,16 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         elif file_type == INPUT_TEAMS_FILE:
             initial_filter = "CSV File (*.csv)"
             file_filter += f";;{initial_filter}"
-        file_path = Path(QtWidgets.QFileDialog.getOpenFileName(
-            self,
-            caption,
-            str(Path().home()),
-            filter=file_filter,
-            initialFilter=initial_filter,
-            options=options,
-        )[0])
+        file_path = Path(
+            QtWidgets.QFileDialog.getOpenFileName(
+                self,
+                caption,
+                str(Path().home()),
+                filter=file_filter,
+                initialFilter=initial_filter,
+                options=options,
+            )[0]
+        )
         if type == INPUT_STUDENT_FILE:
             self.student_file = file_path
         elif type == INPUT_TEAMS_FILE:
