@@ -1,22 +1,23 @@
 from PyQt5 import QtWidgets, QtGui
 from pathlib import Path
+from TeamsAtlasBridge.helpers import valid_extension
 
 
 class QFrameDragDrop(QtWidgets.QFrame):
     def __init__(self, parent) -> None:
         super(QFrameDragDrop, self).__init__(parent)
         self.setAcceptDrops(True)
+        self.file_path: Path = Path()
+        # There's only one button that we need to find
+        self.button = self.findChild(QtWidgets.QPushButton)
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
         if event.mimeData().hasUrls():
-            event.accept()
+            tmp_file = Path(event.mimeData().urls()[0].toLocalFile())
+            if valid_extension(tmp_file):
+                event.accept()
         else:
             event.ignore()
 
     def dropEvent(self, event: QtGui.QDropEvent) -> None:
-        for url in event.mimeData().urls():
-            path = Path(url.toLocalFile())
-            if path.is_file():
-                print(path)
-                print(f"Position: {event.pos()}")
-                print(f"Source: {event.source()}")
+        self.file_path = Path(event.mimeData().urls()[0].toLocalFile())
