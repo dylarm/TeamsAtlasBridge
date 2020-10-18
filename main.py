@@ -12,9 +12,20 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_drop()
-        self.setAcceptDrops(True)
+        self.__setup_buttons()
+        self.__debug_print()
+
+    def __debug_print(self):
+        print(self.frame_grade_csv.pos())
+        print(self.frame_grade_csv.size())
+        print(self.frame_student_xlsx.pos())
+        print(self.frame_student_xlsx.size())
+        print(self.frame_student_xlsx.geometry())
 
     def __setup_drop(self):
+        pass
+
+    def __setup_buttons(self):
         pass
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
