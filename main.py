@@ -62,20 +62,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         elif type == INPUT_TEAMS_FILE:
             self.teams_file = file_path
 
-    def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
-        if event.mimeData().hasUrls():
-            event.accept()
-        else:
-            event.ignore()
-
-    def dropEvent(self, event: QtGui.QDropEvent) -> None:
-        for url in event.mimeData().urls():
-            path = Path(url.toLocalFile())
-            if path.is_file():
-                print(path)
-                print(f"Position: {event.pos()}")
-                print(f"Source: {event.source()}")
-
 
 def main():
     app = QApplication(sys.argv)

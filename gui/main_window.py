@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.name_output_xlsx.raise_()
         self.label_output_xlsx.raise_()
         self.gridLayout.addWidget(self.frame_output_xlsx, 1, 0, 1, 2)
-        self.frame_grade_csv = QtWidgets.QFrame(self.gridLayoutWidget)
+        self.frame_grade_csv = QFrameDragDrop(self.gridLayoutWidget)
         self.frame_grade_csv.setAcceptDrops(True)
         self.frame_grade_csv.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_grade_csv.setFrameShadow(QtWidgets.QFrame.Sunken)
@@ -70,7 +70,7 @@ class Ui_MainWindow(object):
         self.button_process = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.button_process.setObjectName("button_process")
         self.gridLayout.addWidget(self.button_process, 2, 0, 1, 2)
-        self.frame_student_xlsx = QtWidgets.QFrame(self.gridLayoutWidget)
+        self.frame_student_xlsx = QFrameDragDrop(self.gridLayoutWidget)
         self.frame_student_xlsx.setAcceptDrops(True)
         self.frame_student_xlsx.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_student_xlsx.setFrameShadow(QtWidgets.QFrame.Sunken)
@@ -109,3 +109,4 @@ class Ui_MainWindow(object):
         self.button_process.setText(_translate("MainWindow", "Output matched file"))
         self.label_input_students.setText(_translate("MainWindow", "Student Logins XLSX"))
         self.button_input_students.setText(_translate("MainWindow", "(drag and drop, or click, to import)"))
+from qframedragdrop import QFrameDragDrop
