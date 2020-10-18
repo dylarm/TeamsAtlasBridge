@@ -24,6 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         print(self.frame_student_xlsx.geometry())
 
     def __setup_drop(self):
+        # TODO: Find a way of having a specific dropEvent for the buttons/frames?
         pass
 
     def __setup_buttons(self):

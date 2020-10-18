@@ -145,8 +145,6 @@
          <bool>true</bool>
         </property>
        </widget>
-       <zorder>button_input_teams</zorder>
-       <zorder>label_input_teams</zorder>
       </widget>
      </item>
      <item row="2" column="0" colspan="2">
@@ -204,8 +202,6 @@
          <bool>true</bool>
         </property>
        </widget>
-       <zorder>button_input_students</zorder>
-       <zorder>label_input_students</zorder>
       </widget>
      </item>
     </layout>
