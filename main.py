@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication, QStyleFactory
 import gui.main_window as mw
 from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE
 
+
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -26,14 +27,20 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         pass
 
     def __setup_buttons(self):
-        self.button_input_students.clicked.connect(lambda: self._choose_dir(INPUT_STUDENT_FILE))
-        self.button_input_teams.clicked.connect(lambda: self._choose_dir(INPUT_TEAMS_FILE))
+        self.button_input_students.clicked.connect(
+            lambda: self._choose_dir(INPUT_STUDENT_FILE)
+        )
+        self.button_input_teams.clicked.connect(
+            lambda: self._choose_dir(INPUT_TEAMS_FILE)
+        )
 
     def _choose_dir(self, file_type: int = 0) -> None:
         # options = QtWidgets.QFileDialog.Options()
         # options |= QtWidgets.QFileDialog.DontUseNativeDialog
         caption = f"Choose {file_type} file"
-        file_path = QtWidgets.QFileDialog.getOpenFileName(self, caption, str(Path().home()))
+        file_path = QtWidgets.QFileDialog.getOpenFileName(
+            self, caption, str(Path().home())
+        )
         if type == INPUT_STUDENT_FILE:
             self.student_file = file_path
         elif type == INPUT_TEAMS_FILE:
@@ -56,7 +63,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    app.setStyle(QStyleFactory.create('Fusion'))
+    app.setStyle(QStyleFactory.create("Fusion"))
     form = MainWindow()
     form.show()
     app.exec_()
