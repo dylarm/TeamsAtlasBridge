@@ -15,7 +15,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(381, 286)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -103,10 +105,20 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ID Matching"))
         self.label_output_xlsx.setText(_translate("MainWindow", "Output XLSX"))
-        self.name_output_xlsx.setText(_translate("MainWindow", "(add a file from Teams first)"))
+        self.name_output_xlsx.setText(
+            _translate("MainWindow", "(add a file from Teams first)")
+        )
         self.label_input_teams.setText(_translate("MainWindow", "Teams CSV"))
-        self.button_input_teams.setText(_translate("MainWindow", "(drag and drop, or click, to import)"))
+        self.button_input_teams.setText(
+            _translate("MainWindow", "(drag and drop, or click, to import)")
+        )
         self.button_process.setText(_translate("MainWindow", "Output matched file"))
-        self.label_input_students.setText(_translate("MainWindow", "Student Logins XLSX"))
-        self.button_input_students.setText(_translate("MainWindow", "(drag and drop, or click, to import)"))
-from qframedragdrop import QFrameDragDrop
+        self.label_input_students.setText(
+            _translate("MainWindow", "Student Logins XLSX")
+        )
+        self.button_input_students.setText(
+            _translate("MainWindow", "(drag and drop, or click, to import)")
+        )
+
+
+from TeamsAtlasBridge.qframedragdrop import QFrameDragDrop

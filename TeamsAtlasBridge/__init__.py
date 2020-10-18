@@ -1,11 +1,10 @@
 import sys
 from pathlib import Path
 
-import PyQt5
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QStyleFactory
-import gui.main_window as mw
-from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE
+import TeamsAtlasBridge.gui.main_window as mw
+from TeamsAtlasBridge.constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE
 
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
