@@ -1,11 +1,12 @@
 import sys
+import pkg_resources
 from pathlib import Path
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 import TeamsAtlasBridge.gui.main_window as mw
-from TeamsAtlasBridge.constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE
+from TeamsAtlasBridge.constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
 from TeamsAtlasBridge.process import generate_output
 
 
@@ -14,6 +15,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_buttons()
+        self.setWindowTitle(f"{self.windowTitle()} (version {VERSION})")
 
     def __setup_buttons(self):
         self.button_input_students.clicked.connect(

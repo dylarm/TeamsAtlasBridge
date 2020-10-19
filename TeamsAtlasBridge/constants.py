@@ -1,5 +1,7 @@
 # Values constant between everything
 
+VERSION = "1.0.0"
+
 INPUT_TEAMS_FILE = 1
 INPUT_STUDENT_FILE = 2
 OUTPUT_XLSX = 3
