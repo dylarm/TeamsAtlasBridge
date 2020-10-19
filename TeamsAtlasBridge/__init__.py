@@ -2,9 +2,10 @@ import sys
 from pathlib import Path
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QStyleFactory
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 import TeamsAtlasBridge.gui.main_window as mw
 from TeamsAtlasBridge.constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE
+from TeamsAtlasBridge.process import generate_output
 
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
@@ -31,7 +32,27 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.button_process.clicked.connect(self._process_files)
 
     def _process_files(self):
-        pass
+        if (
+            self.frame_grade_csv.file_path.is_file()
+            and self.frame_student_xlsx.file_path.is_file()
+        ):
+            # Both files loaded, good
+            generate_output(
+                assignment_file=self.frame_grade_csv.file_path,
+                student_list=self.frame_student_xlsx,
+                output=self.frame_grade_csv.file_path.absolute().parent.joinpath(
+                    f"{self.frame_grade_csv.assignment_file_name}.xlsx"
+                ),
+            )
+        else:
+            # Pop up an error
+            msg = (
+                f"One of both of the files have not been loaded.\n"
+                f"Currently loaded files:\n\n"
+                f"Teams CSV -- {self.frame_grade_csv.file_path.name}\n\n"
+                f"Student Logins -- {self.frame_student_xlsx.file_path.name}"
+            )
+            QMessageBox.warning(self, "File(s) not loaded", msg)
 
     def _choose_dir(self, file_type: int = 0) -> None:
         options = QtWidgets.QFileDialog.Options()
