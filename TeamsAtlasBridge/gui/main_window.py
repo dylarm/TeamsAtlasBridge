@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/main_window.ui'
+# Form implementation generated from reading ui file 'TeamsAtlasBridge/gui/main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -15,9 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(381, 286)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -99,26 +97,17 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.frame_grade_csv.windowIconTextChanged['QString'].connect(self.name_output_xlsx.setText)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ID Matching"))
         self.label_output_xlsx.setText(_translate("MainWindow", "Output XLSX"))
-        self.name_output_xlsx.setText(
-            _translate("MainWindow", "(add a file from Teams first)")
-        )
+        self.name_output_xlsx.setText(_translate("MainWindow", "(add a file from Teams first)"))
         self.label_input_teams.setText(_translate("MainWindow", "Teams CSV"))
-        self.button_input_teams.setText(
-            _translate("MainWindow", "(drag and drop, or click, to import)")
-        )
+        self.button_input_teams.setText(_translate("MainWindow", "(drag and drop, or click, to import)"))
         self.button_process.setText(_translate("MainWindow", "Output matched file"))
-        self.label_input_students.setText(
-            _translate("MainWindow", "Student Logins XLSX")
-        )
-        self.button_input_students.setText(
-            _translate("MainWindow", "(drag and drop, or click, to import)")
-        )
-
-
-from TeamsAtlasBridge.qframedragdrop import QFrameDragDrop
+        self.label_input_students.setText(_translate("MainWindow", "Student Logins XLSX"))
+        self.button_input_students.setText(_translate("MainWindow", "(drag and drop, or click, to import)"))
+from qframedragdrop import QFrameDragDrop

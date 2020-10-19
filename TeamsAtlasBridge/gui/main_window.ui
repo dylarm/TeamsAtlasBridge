@@ -228,5 +228,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>frame_grade_csv</sender>
+   <signal>windowIconTextChanged(QString)</signal>
+   <receiver>name_output_xlsx</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>147</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
