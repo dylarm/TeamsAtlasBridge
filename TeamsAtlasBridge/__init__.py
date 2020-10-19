@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             # Both files loaded, good
             generate_output(
                 assignment_file=self.frame_grade_csv.file_path,
-                student_list=self.frame_student_xlsx,
+                student_list=self.frame_student_xlsx.file_path,
                 output=self.frame_grade_csv.file_path.absolute().parent.joinpath(
                     f"{self.frame_grade_csv.assignment_file_name}.xlsx"
                 ),
