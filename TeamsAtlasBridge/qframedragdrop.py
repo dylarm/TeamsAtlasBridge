@@ -1,7 +1,9 @@
-from PyQt5 import QtWidgets, QtGui
 from pathlib import Path
-from TeamsAtlasBridge.helpers import valid_extension
+
+from PyQt5 import QtWidgets, QtGui
+
 from TeamsAtlasBridge.constants import INPUT_TEAMS_FRAME, INPUT_STUDENT_FRAME
+from TeamsAtlasBridge.helpers import valid_extension
 from TeamsAtlasBridge.process import assignment_name, assignment_file_name, class_period
 
 

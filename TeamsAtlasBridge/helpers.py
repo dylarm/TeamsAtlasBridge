@@ -1,5 +1,6 @@
 from functools import wraps
 from pathlib import Path
+
 from TeamsAtlasBridge.constants import VALID_EXTENSIONS
 
 
