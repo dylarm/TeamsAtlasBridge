@@ -28,6 +28,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.button_input_teams.clicked.connect(
             lambda: self._choose_dir(INPUT_TEAMS_FILE)
         )
+        self.button_process.clicked.connect(self._process_files)
+
+    def _process_files(self):
+        pass
 
     def _choose_dir(self, file_type: int = 0) -> None:
         options = QtWidgets.QFileDialog.Options()

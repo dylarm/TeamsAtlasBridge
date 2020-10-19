@@ -1,4 +1,6 @@
 from pathlib import Path
+import pandas as pd
+import TeamsAtlasBridge.constants as CONSTANT
 
 
 def assignment_name(file: Path) -> str:
@@ -33,3 +35,23 @@ def assignment_file_name(assignment: str, period: int) -> str:
     :return: str
     """
     return f"{period} - {assignment}"
+
+
+def generate_output(assignment_file: Path, student_list: Path, output: Path) -> None:
+    """
+    Match email addresses between the files and write out the result
+
+    :param assignment_file: Path
+    :param student_list: Path
+    :param output: Path
+    :return: None
+    """
+    students = pd.read_excel(student_list, **CONSTANT.STUDENT_LOGINS)
+    teams = pd.read_csv(assignment_file, **CONSTANT.TEAMS_CSV)
+    matched_file = teams.merge(
+        students,
+        how="left",
+        left_on=teams.columns[0],
+        right_on=CONSTANT.STUDENT_LOGINS["usecols"][1],
+    )
+    matched_file.to_excel(output)
