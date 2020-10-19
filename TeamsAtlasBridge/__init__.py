@@ -37,6 +37,11 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                     f"{self.frame_grade_csv.assignment_file_name}.xlsx"
                 ),
             )
+            msg = (
+                f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
+                f" at {self.frame_grade_csv.file_path.absolute().parent}"
+            )
+            QMessageBox.information(self, "All done", msg)
         else:
             # Pop up an error
             msg = (
