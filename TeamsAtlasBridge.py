@@ -8,6 +8,8 @@ import gui.main_window as mw
 from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
 from process import generate_output
 
+# Copyright © 2020, Dylan Armitage. Some rights reserved.
+# This work is licensed under the GNU General Public License, version 3.
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __init__(self, parent=None):
