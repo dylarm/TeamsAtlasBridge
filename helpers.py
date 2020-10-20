@@ -1,7 +1,7 @@
 from functools import wraps
 from pathlib import Path
 
-from TeamsAtlasBridge.constants import VALID_EXTENSIONS
+from constants import VALID_EXTENSIONS
 
 
 def add_method(cls):

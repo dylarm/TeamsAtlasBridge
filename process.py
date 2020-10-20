@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
-import TeamsAtlasBridge.constants as CONSTANT
+import constants as CONSTANT
 
 
 def assignment_name(file: Path) -> str:
