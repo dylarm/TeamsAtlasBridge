@@ -56,4 +56,4 @@ def generate_output(assignment_file: Path, student_list: Path, output: Path) -> 
         left_on=teams.columns[0],
         right_on=CONSTANT.STUDENT_LOGINS["usecols"][1],
     )
-    matched_file.to_excel(output)
+    matched_file.to_excel(output, index=False)
