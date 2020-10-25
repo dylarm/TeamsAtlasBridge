@@ -34,6 +34,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             lambda: self._choose_file(INPUT_TEAMS_FILE)
         )
         self.button_process.clicked.connect(self._process_files)
+        self.button_output_dir.clicked.connect(self._choose_output_dir)
         logging.debug("Finished setting up buttons.")
 
     def _process_files(self) -> None:
@@ -47,13 +48,13 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 f"self.frame_grade_csv.file_path: {self.frame_grade_csv.file_path}\n"
                 f"self.frame_grade_csv.assignment_file_name: {self.frame_grade_csv.assignment_file_name}\n"
                 f"self.frame_student_xlsx.file_path: {self.frame_student_xlsx.file_path}\n"
-                f"Output: {self.frame_grade_csv.file_path.absolute().parent.joinpath(self.frame_grade_csv.assignment_file_name)}.xlsx"
+                f"Output: {Path(self.text_output_dir.text()).joinpath(self.frame_grade_csv.assignment_file_name)}.xlsx"
             )
             # Both files loaded, good
             generate_output(
                 assignment_file=self.frame_grade_csv.file_path,
                 student_list=self.frame_student_xlsx.file_path,
-                output=self.frame_grade_csv.file_path.absolute().parent.joinpath(
+                output=Path(self.text_output_dir.text()).joinpath(
                     f"{self.frame_grade_csv.assignment_file_name}.xlsx"
                 ),
             )
@@ -73,6 +74,26 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             )
             logger.info(msg)
             QMessageBox.warning(self, "File(s) not loaded", msg)
+
+    def _choose_output_dir(self, chosen: str = "") -> None:
+        logging.info("Setting output directory")
+        if chosen and Path(chosen).is_dir():
+            logging.debug(f"Output directory already 'chosen': {chosen}")
+            self.text_output_dir.setText(chosen)
+            logging.debug(f"Output directory set: {Path(chosen)}")
+        else:
+            logging.debug("Output directory not chosen, running dir selection...")
+            options = QtWidgets.QFileDialog.Options()
+            options |= QtWidgets.QFileDialog.DontUseNativeDialog
+            options |= QtWidgets.QFileDialog.ShowDirsOnly
+            output_dir = QtWidgets.QFileDialog.getExistingDirectory(
+                self,
+                "Choose output folder",
+                directory=str(Path().home()),
+                options=options,
+            )
+            logging.debug(f"Directory chosen: {output_dir}")
+            self.text_output_dir.setText(output_dir)
 
     def _choose_file(self, file_type: int = 0) -> None:
         logging.debug("Running _choose_file()")
@@ -114,6 +135,9 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         elif file_type == INPUT_TEAMS_FILE:
             self.frame_grade_csv.file_path = file_path
             self.frame_grade_csv.process_drop()
+            if not self.text_output_dir.text():
+                logging.debug("Output directory not set yet. Doing so now...")
+                self._choose_output_dir(chosen=str(file_path.absolute().parent))
             logging.debug("Teams grade CSV file set")
 
 
