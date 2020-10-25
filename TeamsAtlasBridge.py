@@ -11,6 +11,7 @@ from process import generate_output
 # Copyright © 2020, Dylan Armitage. Some rights reserved.
 # This work is licensed under the GNU General Public License, version 3.
 
+
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -20,10 +21,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 
     def __setup_buttons(self):
         self.button_input_students.clicked.connect(
-            lambda: self._choose_dir(INPUT_STUDENT_FILE)
+            lambda: self._choose_file(INPUT_STUDENT_FILE)
         )
         self.button_input_teams.clicked.connect(
-            lambda: self._choose_dir(INPUT_TEAMS_FILE)
+            lambda: self._choose_file(INPUT_TEAMS_FILE)
         )
         self.button_process.clicked.connect(self._process_files)
 
@@ -55,18 +56,22 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             )
             QMessageBox.warning(self, "File(s) not loaded", msg)
 
-    def _choose_dir(self, file_type: int = 0) -> None:
+    def _choose_file(self, file_type: int = 0) -> None:
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        caption = f"Choose {file_type} file"
         file_filter: str = "All files (*.*)"
         initial_filter = file_filter
         if file_type == INPUT_STUDENT_FILE:
             initial_filter = "Excel Workbook (*.xlsx)"
             file_filter += f";;{initial_filter}"
+            file_type_text = "Student Login"
         elif file_type == INPUT_TEAMS_FILE:
             initial_filter = "CSV File (*.csv)"
             file_filter += f";;{initial_filter}"
+            file_type_text = "Teams Grade CSV"
+        else:
+            file_type_text = ""
+        caption = f"Choose {file_type_text} file"
         file_path = Path(
             QtWidgets.QFileDialog.getOpenFileName(
                 self,
