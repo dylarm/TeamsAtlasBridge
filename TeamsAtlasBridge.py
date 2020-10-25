@@ -23,8 +23,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.setupUi(self)
         self.__setup_buttons()
         self.setWindowTitle(f"{self.windowTitle()} (version {VERSION})")
+        logger.info("Main window setup")
 
     def __setup_buttons(self):
+        logging.debug("Setting up buttons...")
         self.button_input_students.clicked.connect(
             lambda: self._choose_file(INPUT_STUDENT_FILE)
         )
@@ -32,12 +34,21 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             lambda: self._choose_file(INPUT_TEAMS_FILE)
         )
         self.button_process.clicked.connect(self._process_files)
+        logging.debug("Finished setting up buttons.")
 
     def _process_files(self):
+        logging.info("Processing files")
         if (
             self.frame_grade_csv.file_path.is_file()
             and self.frame_student_xlsx.file_path.is_file()
         ):
+            logging.info("Both files are selected")
+            logging.debug(
+                f"self.frame_grade_csv.file_path: {self.frame_grade_csv.file_path}\n"
+                f"self.frame_grade_csv.assignment_file_name: {self.frame_grade_csv.assignment_file_name}\n"
+                f"self.frame_student_xlsx.file_path: {self.frame_student_xlsx.file_path}\n"
+                f"Output: {self.frame_grade_csv.file_path.absolute().parent.joinpath(self.frame_grade_csv.assignment_file_name)}.xlsx"
+            )
             # Both files loaded, good
             generate_output(
                 assignment_file=self.frame_grade_csv.file_path,
@@ -50,6 +61,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
                 f" at {self.frame_grade_csv.file_path.absolute().parent}"
             )
+            logger.info(msg)
             QMessageBox.information(self, "All done", msg)
         else:
             # Pop up an error
@@ -59,9 +71,11 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 f"Teams CSV -- {self.frame_grade_csv.file_path.name}\n\n"
                 f"Student Logins -- {self.frame_student_xlsx.file_path.name}"
             )
+            logger.info(msg)
             QMessageBox.warning(self, "File(s) not loaded", msg)
 
     def _choose_file(self, file_type: int = 0) -> None:
+        logging.debug("Running _choose_file()")
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         file_filter: str = "All files (*.*)"
@@ -77,6 +91,11 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         else:
             file_type_text = ""
         caption = f"Choose {file_type_text} file"
+        logging.debug(
+            f"Caption: {caption}\n"
+            f"file_filter: {file_filter}\n"
+            f"initial_filter: {initial_filter}"
+        )
         file_path = Path(
             QtWidgets.QFileDialog.getOpenFileName(
                 self,
@@ -87,10 +106,13 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 options=options,
             )[0]
         )
+        logging.info(f"File path: {file_path}")
         if type == INPUT_STUDENT_FILE:
             self.student_file = file_path
+            logging.debug("Student Login file set")
         elif type == INPUT_TEAMS_FILE:
             self.teams_file = file_path
+            logging.debug("Teams grade CSV file set")
 
 
 def setup_logging(
