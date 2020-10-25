@@ -1,5 +1,8 @@
 import sys
+import logging
+import logging.config
 from pathlib import Path
+from datetime import datetime
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
@@ -10,6 +13,8 @@ from process import generate_output
 
 # Copyright © 2020, Dylan Armitage. Some rights reserved.
 # This work is licensed under the GNU General Public License, version 3.
+
+DEFAULT_LOG_FILE: Path = Path(f"./teams-atlas_bridge {datetime.now()}.log").absolute()
 
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
@@ -88,13 +93,33 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             self.teams_file = file_path
 
 
+def setup_logging(
+    output_file: Path = DEFAULT_LOG_FILE,
+    to_file: bool = False,
+    default_level=logging.DEBUG,
+    str_format: str = "%(asctime)s: [%(name)s/%(levelname)s] %(message)s",
+) -> None:
+    """Setup logging configuration"""
+    if to_file:
+        logging.basicConfig(
+            filename=str(output_file), level=default_level, format=str_format
+        )
+    else:
+        logging.basicConfig(level=default_level, format=str_format)
+
+
 def main():
     app = QApplication(sys.argv)
     app.setStyle(QStyleFactory.create("Fusion"))
+    logger.debug("App style set")
     form = MainWindow()
     form.show()
+    logger.debug("Executing app...")
     app.exec_()
 
 
+setup_logging(to_file=False)
+logger = logging.getLogger(__name__)
 if __name__ == "__main__":
+    logger.debug("Running main function")
     main()
