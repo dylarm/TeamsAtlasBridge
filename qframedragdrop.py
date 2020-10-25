@@ -38,17 +38,7 @@ class QFrameDragDrop(QtWidgets.QFrame):
     def dropEvent(self, event: QtGui.QDropEvent) -> None:
         self.file_path = Path(event.mimeData().urls()[0].toLocalFile())
         logger.info(f"File dropped: {self.file_path}")
-        if self.objectName() == INPUT_TEAMS_FRAME:
-            logger.info("Processing for grades...")
-            self.assignment_name = assignment_name(self.file_path)
-            self.assignment_file_name = assignment_file_name(
-                assignment=self.assignment_name, period=class_period(self.file_path)
-            )
-            self.setWindowIconText(f"{self.assignment_file_name}.xlsx")
-            logger.info("Finished processing")
-            logger.debug(f"File(s) that may be exported: {self.windowIconText()}")
-        self.findChild(QtWidgets.QPushButton).setText(self.file_path.name)
-        logger.debug("'button' text changed")
+        self.process_drop()
 
     def __process_event(self, file: Path, event: QtGui.QDropEvent) -> None:
         logger.debug(f"Processing file drag event: {file.name}")
@@ -61,3 +51,20 @@ class QFrameDragDrop(QtWidgets.QFrame):
         else:
             logger.debug("File did not meet any criteria -- rejecting")
             event.ignore()
+
+    def process_drop(self) -> None:
+        logger.info(f"Processing file {self.file_path}")
+        if self.file_path.is_file():
+            if self.objectName() == INPUT_TEAMS_FRAME:
+                logger.info("Processing for grades...")
+                self.assignment_name = assignment_name(self.file_path)
+                self.assignment_file_name = assignment_file_name(
+                    assignment=self.assignment_name, period=class_period(self.file_path)
+                )
+                self.setWindowIconText(f"{self.assignment_file_name}.xlsx")
+                logger.info("Finished processing")
+                logger.debug(f"File(s) that may be exported: {self.windowIconText()}")
+            self.findChild(QtWidgets.QPushButton).setText(self.file_path.name)
+            logger.debug("'button' text changed")
+        else:
+            logger.warning(f"file_path not properly set: {self.file_path}")
