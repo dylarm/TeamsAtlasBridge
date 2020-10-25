@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_buttons()
-        self.setWindowTitle(f"{self.windowTitle()} (version {VERSION})")
+        self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
         logger.info("Main window setup")
 
     def __setup_buttons(self):
