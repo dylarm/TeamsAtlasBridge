@@ -1,16 +1,18 @@
+from typing import Dict, List, Union
+
 # Values constant between everything
 
-VERSION = "v1.0.1"
+VERSION: str = "v1.0.1"
 
-INPUT_TEAMS_FILE = 1
-INPUT_STUDENT_FILE = 2
-OUTPUT_XLSX = 3
-VALID_EXTENSIONS = ["xlsx", "xls", "csv"]
+INPUT_TEAMS_FILE: int = 1
+INPUT_STUDENT_FILE: int = 2
+OUTPUT_XLSX: int = 3
+VALID_EXTENSIONS: List[str] = ["xlsx", "xls", "csv"]
 
 # Frame names
-INPUT_TEAMS_FRAME = "frame_grade_csv"
-INPUT_STUDENT_FRAME = "frame_student_xlsx"
-OUTPUT_XLSX_FRAME = "frame_output_xlsx"
+INPUT_TEAMS_FRAME: str = "frame_grade_csv"
+INPUT_STUDENT_FRAME: str = "frame_student_xlsx"
+OUTPUT_XLSX_FRAME: str = "frame_output_xlsx"
 
 # File Information
 # Student Logins description:
@@ -26,7 +28,10 @@ OUTPUT_XLSX_FRAME = "frame_output_xlsx"
 #                       J - Password reset by
 #                       K - None
 #                       L - Date password was reset
-STUDENT_LOGINS = {"header": 3, "usecols": ["StuID", "Username"]}
+STUDENT_LOGINS: Dict[str, Union[int, List[str]]] = {
+    "header": 3,
+    "usecols": ["StuID", "Username"],
+}
 # Teams grades description:
 #   * Saved as CSV, 6 columns
 #   * First row contains headers, and every other row is just text by default
@@ -46,4 +51,4 @@ STUDENT_LOGINS = {"header": 3, "usecols": ["StuID", "Username"]}
 #       * Example row (header):
 #           "First Name","Last Name","Email Address","Unit 2 Quiz","Points","Feedback","Unit 1 Quiz","Points","Feedback"
 #       * TODO: May need to create some sort of structure/class/etc. to load multiple assignments properly.
-TEAMS_CSV = {"usecols": [2, 3]}
+TEAMS_CSV: Dict[str, Union[int, List[int]]] = {"usecols": [2, 3]}

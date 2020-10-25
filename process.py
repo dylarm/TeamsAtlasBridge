@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 
-import constants as CONSTANT
+import constants
 
 logger = logging.getLogger(__name__)
 
@@ -63,16 +63,16 @@ def generate_output(assignment_file: Path, student_list: Path, output: Path) -> 
     """
     logger.info("Generating matched file...")
     # TODO: If there are multiple files to export, how do we avoid loading the student list for each one?
-    students = pd.read_excel(student_list, **CONSTANT.STUDENT_LOGINS)
+    students = pd.read_excel(student_list, **constants.STUDENT_LOGINS)
     logger.debug("Student login file loaded")
-    teams = pd.read_csv(assignment_file, **CONSTANT.TEAMS_CSV)
+    teams = pd.read_csv(assignment_file, **constants.TEAMS_CSV)
     logger.debug("Teams grade CSV file loaded")
     logger.info("Input files loaded, matching email addresses...")
     matched_file = teams.merge(
         students,
         how="left",
         left_on=teams.columns[0],
-        right_on=CONSTANT.STUDENT_LOGINS["usecols"][1],
+        right_on=constants.STUDENT_LOGINS["usecols"][1],
     )
     logger.info("Email addresses matched. Writing file(s) out")
     matched_file.to_excel(output, index=False)

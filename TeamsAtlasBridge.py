@@ -18,14 +18,14 @@ DEFAULT_LOG_FILE: Path = Path(f"./teams-atlas_bridge {datetime.now()}.log").abso
 
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_buttons()
         self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
         logger.info("Main window setup")
 
-    def __setup_buttons(self):
+    def __setup_buttons(self) -> None:
         logging.debug("Setting up buttons...")
         self.button_input_students.clicked.connect(
             lambda: self._choose_file(INPUT_STUDENT_FILE)
@@ -36,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.button_process.clicked.connect(self._process_files)
         logging.debug("Finished setting up buttons.")
 
-    def _process_files(self):
+    def _process_files(self) -> None:
         logging.info("Processing files")
         if (
             self.frame_grade_csv.file_path.is_file()
@@ -132,7 +132,7 @@ def setup_logging(
         logging.basicConfig(level=default_level, format=str_format)
 
 
-def main():
+def main() -> None:
     app = QApplication(sys.argv)
     app.setStyle(QStyleFactory.create("Fusion"))
     logger.debug("App style set")
