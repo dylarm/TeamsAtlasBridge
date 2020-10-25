@@ -107,10 +107,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             )[0]
         )
         logging.info(f"File path: {file_path}")
-        if type == INPUT_STUDENT_FILE:
+        if file_type == INPUT_STUDENT_FILE:
             self.student_file = file_path
             logging.debug("Student Login file set")
-        elif type == INPUT_TEAMS_FILE:
+        elif file_type == INPUT_TEAMS_FILE:
             self.teams_file = file_path
             logging.debug("Teams grade CSV file set")
 
