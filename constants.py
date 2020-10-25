@@ -42,3 +42,4 @@ STUDENT_LOGINS = {"header": 3, "usecols": ["StuID", "Username"]}
 #   * First name and last name aren't necessarily the student's actual first and last name,
 #       especially if they have more than one
 TEAMS_CSV = {"usecols": [2, 3]}
+# TODO: Address pattern found in all-grades CSV

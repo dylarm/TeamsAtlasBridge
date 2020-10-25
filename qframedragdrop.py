@@ -57,6 +57,7 @@ class QFrameDragDrop(QtWidgets.QFrame):
         if self.file_path.is_file():
             if self.objectName() == INPUT_TEAMS_FRAME:
                 logger.info("Processing for grades...")
+                # TODO: If there are multiple assignments present in file?
                 self.assignment_name = assignment_name(self.file_path)
                 self.assignment_file_name = assignment_file_name(
                     assignment=self.assignment_name, period=class_period(self.file_path)

@@ -15,6 +15,7 @@ def assignment_name(file: Path) -> str:
     :param file: Path
     :return: str
     """
+    # TODO: get multiple assignments, if present
     logger.debug("Processing assignment name...")
     with open(file, "r") as f:
         line = f.readline()
@@ -61,6 +62,7 @@ def generate_output(assignment_file: Path, student_list: Path, output: Path) -> 
     :return: None
     """
     logger.info("Generating matched file...")
+    # TODO: If there are multiple files to export, how do we avoid loading the student list for each one?
     students = pd.read_excel(student_list, **CONSTANT.STUDENT_LOGINS)
     logger.debug("Student login file loaded")
     teams = pd.read_csv(assignment_file, **CONSTANT.TEAMS_CSV)

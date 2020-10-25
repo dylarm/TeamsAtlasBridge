@@ -140,6 +140,7 @@ def main():
     form.show()
     logger.debug("Executing app...")
     app.exec_()
+    # TODO: Don't force-quite when error occurs. Try to log and write to file.
 
 
 setup_logging(to_file=False)
