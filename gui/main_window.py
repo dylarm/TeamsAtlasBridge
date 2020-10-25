@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'TeamsAtlasBridge/gui/main_window.ui'
+# Form implementation generated from reading ui file 'gui/main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -102,7 +102,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "ID Matching"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Teams-ATLAS Bridge"))
         self.label_output_xlsx.setText(_translate("MainWindow", "Output XLSX"))
         self.name_output_xlsx.setText(_translate("MainWindow", "(add a file from Teams first)"))
         self.label_input_teams.setText(_translate("MainWindow", "Teams CSV"))

@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>ID Matching</string>
+   <string>Teams-ATLAS Bridge</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
