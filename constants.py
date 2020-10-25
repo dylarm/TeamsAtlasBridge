@@ -41,5 +41,9 @@ STUDENT_LOGINS = {"header": 3, "usecols": ["StuID", "Username"]}
 #   * Yes, that is a messed up way of storing CSV data
 #   * First name and last name aren't necessarily the student's actual first and last name,
 #       especially if they have more than one
+#   * If the file is an export of all the grades, then the number of columns is unknown but should be a multiple of 3:
+#       columns 3,4,5 repeat for each assignment, with the most recent assignment being the "first" one.
+#       * Example row (header):
+#           "First Name","Last Name","Email Address","Unit 2 Quiz","Points","Feedback","Unit 1 Quiz","Points","Feedback"
+#       * TODO: May need to create some sort of structure/class/etc. to load multiple assignments properly.
 TEAMS_CSV = {"usecols": [2, 3]}
-# TODO: Address pattern found in all-grades CSV
