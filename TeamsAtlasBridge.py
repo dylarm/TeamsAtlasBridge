@@ -1,8 +1,8 @@
-import sys
 import logging
 import logging.config
-from pathlib import Path
+import sys
 from datetime import datetime
+from pathlib import Path
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
