@@ -1,6 +1,9 @@
 import logging
 import logging.config
 import sys
+import signal
+import traceback
+from io import StringIO
 from datetime import datetime
 from pathlib import Path
 
@@ -29,6 +32,8 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         version_label.setFrameShape(QtWidgets.QFrame.StyledPanel)
         version_label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.statusbar.addPermanentWidget(version_label)
+        self.error_dialog = QtWidgets.QErrorMessage()  # For use later, if needed
+        self.__setup_signal_capture()
         logger.info("Main window set up")
 
     def __setup_buttons(self) -> None:
@@ -45,6 +50,28 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             lambda: self.choose_output_dir(str(self.frame_grade_csv.file_path.parent))
         )
         logging.debug("Finished setting up buttons.")
+
+    def __setup_signal_capture(self) -> None:
+        logger.debug("Setting up signal capture")
+        signal.signal(signal.SIGABRT, self.__signal_handler)
+
+    def __signal_handler(self, signal_num: signal.Signals, frame) -> None:
+        frame_print = StringIO()
+        traceback.print_stack(frame, file=frame_print)
+        file_name = Path(f"./TAB Error {datetime.now()}.log").absolute()
+        with open(file_name, "a") as f:
+            f.write(frame_print.getvalue())
+        logger.error(
+            f"Received signal {signal_num}, {signal.strsignal(signal_num)}\n"
+            f"Frame: {frame}\n"
+            f"Traceback:\n"
+            f"{frame_print.getvalue()}"
+        )
+        self.error_dialog.showMessage(
+            f"Error: received signal {signal_num}, {signal.strsignal(signal_num)}. \n"
+            f"Please send '{file_name.name}' to maintainer "
+            f"(located at {file_name.parent})"
+        )
 
     def _process_files(self) -> None:
         logging.info("Processing files")
@@ -170,7 +197,6 @@ def main() -> None:
     form.show()
     logger.debug("Executing app...")
     app.exec_()
-    # TODO: Don't force-quite when error occurs. Try to log and write to file.
 
 
 setup_logging(to_file=False)
