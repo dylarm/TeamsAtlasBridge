@@ -19,11 +19,17 @@ DEFAULT_LOG_FILE: Path = Path(f"./teams-atlas_bridge {datetime.now()}.log").abso
 
 class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __init__(self, parent=None) -> None:
+        logger.info(f"Starting Teams-ATLAS Bridge, {VERSION}")
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_buttons()
         self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
-        logger.info("Main window setup")
+        version_label = QtWidgets.QLabel()
+        version_label.setText(f"Version: {VERSION}")
+        version_label.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        version_label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.statusbar.addPermanentWidget(version_label)
+        logger.info("Main window set up")
 
     def __setup_buttons(self) -> None:
         logging.debug("Setting up buttons...")
