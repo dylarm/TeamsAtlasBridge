@@ -97,6 +97,19 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 logger.info("Not going to update page.")
         return ret
 
+    def __actual_process(self, output_file: Path) -> None:
+        generate_output(
+            assignment_file=self.frame_grade_csv.file_path,
+            student_list=self.frame_student_xlsx.file_path,
+            output=output_file,
+        )
+        msg = (
+            f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
+            f" at {self.text_output_dir.text()}"
+        )
+        logger.info(msg)
+        QMessageBox.information(self, "All done", msg)
+
     def _process_files(self) -> None:
         logging.info("Processing files")
         if (
@@ -111,19 +124,40 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 f"Output: {Path(self.text_output_dir.text()).joinpath(self.frame_grade_csv.assignment_file_name)}.xlsx"
             )
             # Both files loaded, good
-            generate_output(
-                assignment_file=self.frame_grade_csv.file_path,
-                student_list=self.frame_student_xlsx.file_path,
-                output=Path(self.text_output_dir.text()).joinpath(
-                    f"{self.frame_grade_csv.assignment_file_name}.xlsx"
-                ),
+            output_file = Path(self.text_output_dir.text()).joinpath(
+                f"{self.frame_grade_csv.assignment_file_name}.xlsx"
             )
-            msg = (
-                f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
-                f" at {self.text_output_dir.text()}"
-            )
-            logger.info(msg)
-            QMessageBox.information(self, "All done", msg)
+            if output_file.exists():
+                logger.info("Output File already exists!")
+                overwrite_prompt = QMessageBox()
+                overwrite_prompt.setWindowTitle("Output File Exists")
+                overwrite_prompt.setText(
+                    f"The file '{output_file.name}' already exists."
+                    f"Would you like to overwrite, or save to a different file?"
+                )
+                overwrite_prompt.addButton(
+                    QtWidgets.QPushButton("Overwrite"), QMessageBox.YesRole
+                )
+                overwrite_prompt.addButton(
+                    QtWidgets.QPushButton("Rename"), QMessageBox.RejectRole
+                )
+                overwrite_prompt.addButton(
+                    QtWidgets.QPushButton("Cancel"), QMessageBox.NoRole
+                )
+                response = overwrite_prompt.exec_()
+                logger.debug(f"Response: {response}")
+                if response == QMessageBox.RejectRole:
+                    logger.info("Response: Rename file")
+                    # TODO: Create renaming dialog
+                else:
+                    pass  # Rewriting is automatic
+                if (
+                    response == QMessageBox.RejectRole
+                    or response == QMessageBox.YesRole
+                ):
+                    self.__actual_process()
+            else:
+                self.__actual_process()
         else:
             # Pop up an error
             msg = (
