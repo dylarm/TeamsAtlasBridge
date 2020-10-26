@@ -6,8 +6,6 @@
     * According to Paul Scott on FB, it is force quitting with their test data
     * Should the multiple files be output in a subdirectory, or just wherever the output single output file would go?
     * How to automatically detect that the file loaded contains multiple assignments vs just one?
-* Report if student does not match - wrong email address, etc. (added 2020-10-20)
-    * Can match based on only the username before "@"
 * Allow for scaling of grade - percentage (added 2020-10-20)
 * Allow changing of output file name - default vs custom? (added 2020-10-20)
     * Will need to allow for notification of possibly overwriting currently existing file

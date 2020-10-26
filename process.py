@@ -52,6 +52,7 @@ def assignment_file_name(assignment: str, period: int) -> str:
     return name
 
 
+# noinspection PyArgumentList
 def generate_output(assignment_file: Path, student_list: Path, output: Path) -> None:
     """
     Match email addresses between the files and write out the result
@@ -65,8 +66,12 @@ def generate_output(assignment_file: Path, student_list: Path, output: Path) -> 
     # TODO: If there are multiple files to export, how do we avoid loading the student list for each one?
     students = pd.read_excel(student_list, **constants.STUDENT_LOGINS)
     logger.debug("Student login file loaded")
+    students["Username"] = students["Username"].map(lambda x: x.split("@")[0])
+    logger.debug("Student usernames split")
     teams = pd.read_csv(assignment_file, **constants.TEAMS_CSV)
     logger.debug("Teams grade CSV file loaded")
+    teams["Email Address"] = teams["Email Address"].map(lambda x: x.split("@")[0])
+    logger.debug("Student email addresses split")
     logger.info("Input files loaded, matching email addresses...")
     matched_file = teams.merge(
         students,
@@ -74,6 +79,8 @@ def generate_output(assignment_file: Path, student_list: Path, output: Path) -> 
         left_on=teams.columns[0],
         right_on=constants.STUDENT_LOGINS["usecols"][1],
     )
+    matched_file.drop(columns=["Email Address", "Username"], inplace=True)
+    logger.debug("Removed all other columns")
     logger.info("Email addresses matched. Writing file(s) out")
     matched_file.to_excel(output, index=False)
     logger.info("File(s) finished writing")
