@@ -243,11 +243,22 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="button_output_dir">
-           <property name="text">
-            <string>Change Output Folder</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QPushButton" name="button_output_dir">
+             <property name="text">
+              <string>Change Output Folder</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="button_default_output_dir">
+             <property name="text">
+              <string>Default Output Folder</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>

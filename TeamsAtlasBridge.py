@@ -35,6 +35,9 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         )
         self.button_process.clicked.connect(self._process_files)
         self.button_output_dir.clicked.connect(self.choose_output_dir)
+        self.button_default_output_dir.clicked.connect(
+            lambda: self.choose_output_dir(str(self.frame_grade_csv.file_path.parent))
+        )
         logging.debug("Finished setting up buttons.")
 
     def _process_files(self) -> None:
@@ -60,7 +63,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             )
             msg = (
                 f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
-                f" at {self.frame_grade_csv.file_path.absolute().parent}"
+                f" at {self.text_output_dir.text()}"
             )
             logger.info(msg)
             QMessageBox.information(self, "All done", msg)
