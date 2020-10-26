@@ -7,10 +7,11 @@ from io import StringIO
 from datetime import datetime
 from pathlib import Path
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 import gui.main_window as mw
+import check_updates
 from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
 from process import generate_output
 
@@ -28,7 +29,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.__setup_buttons()
         self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
         version_label = QtWidgets.QLabel()
-        version_label.setText(f"Version: {VERSION}")
+        version_label.setText(f"Version: {VERSION} {self.__check_updates()}")
         version_label.setFrameShape(QtWidgets.QFrame.StyledPanel)
         version_label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.statusbar.addPermanentWidget(version_label)
@@ -72,6 +73,29 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             f"Please send '{file_name.name}' to maintainer "
             f"(located at {file_name.parent})"
         )
+
+    def __check_updates(self) -> str:
+        logger.info("Checking for new version...")
+        ret: str = ""
+        version, link = check_updates.get_latest_ver()
+        if check_updates.update_available(latest_ver=version):
+            ret = f"(Update: {version})"
+            logger.info(f"New version available: {version}")
+            response = QMessageBox.question(
+                self,
+                "Update Available",
+                f"A new update is available!\n"
+                f"Current version: {VERSION}\n"
+                f"New version: {version}\n"
+                f"Go to download page?",
+            )
+            logger.debug(f"Response: {response}")
+            if response == QMessageBox.Yes:
+                logger.info(f"Opening {link}")
+                QtGui.QDesktopServices.openUrl(QtCore.QUrl(link))
+            else:
+                logger.info("Not going to update page.")
+        return ret
 
     def _process_files(self) -> None:
         logging.info("Processing files")
