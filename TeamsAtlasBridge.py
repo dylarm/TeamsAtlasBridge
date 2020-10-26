@@ -144,7 +144,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 def setup_logging(
     output_file: Path = DEFAULT_LOG_FILE,
     to_file: bool = False,
-    default_level=logging.DEBUG,
+    default_level=logging.INFO,
     str_format: str = "%(asctime)s: [%(name)s/%(levelname)s] %(message)s",
 ) -> None:
     """Setup logging configuration"""

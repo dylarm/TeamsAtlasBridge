@@ -2,7 +2,7 @@ from typing import Dict, List, Union
 
 # Values constant between everything
 
-VERSION: str = "v1.0.1"
+VERSION: str = "v1.0.2"
 
 INPUT_TEAMS_FILE: int = 1
 INPUT_STUDENT_FILE: int = 2
