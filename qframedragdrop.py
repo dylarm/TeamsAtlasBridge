@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 
 from constants import INPUT_TEAMS_FRAME, INPUT_STUDENT_FRAME
 from helpers import valid_extension
@@ -11,20 +11,20 @@ logger = logging.getLogger(__name__)
 
 
 class QFrameDragDrop(QtWidgets.QFrame):
+    setOutputDir = QtCore.pyqtSignal(str)
+
     def __init__(self, parent) -> None:
         super(QFrameDragDrop, self).__init__(parent)
         self.setAcceptDrops(True)
         self.file_path: Path = Path()
         self.assignment_name: str = ""
         self.assignment_file_name: str = ""
-        logger.debug("QFrameDragDrop initialized")
+        logger.debug(f"QFrameDragDrop initialized\nParent: {self.parent()}")
 
     def dragEnterEvent(self, event: QtGui.QDragEnterEvent) -> None:
         logger.debug("File drag enter event")
         if event.mimeData().hasUrls() and len(event.mimeData().urls()) == 1:
-            logger.debug(
-                f"Checking validity on {event.mimeData().urls()[0].toLocalFile()}"
-            )
+            logger.debug(f"Checking validity on {event.mimeData().urls()}")
             try:
                 tmp_file = Path(event.mimeData().urls()[0].toLocalFile())
                 if valid_extension(tmp_file):
@@ -63,6 +63,7 @@ class QFrameDragDrop(QtWidgets.QFrame):
                     assignment=self.assignment_name, period=class_period(self.file_path)
                 )
                 self.setWindowIconText(f"{self.assignment_file_name}.xlsx")
+                self.setOutputDir.emit(str(self.file_path.parent))
                 logger.info("Finished processing")
                 logger.debug(f"File(s) that may be exported: {self.windowIconText()}")
             self.findChild(QtWidgets.QPushButton).setText(self.file_path.name)

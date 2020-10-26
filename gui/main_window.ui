@@ -274,6 +274,9 @@
    <extends>QFrame</extends>
    <header location="global">qframedragdrop.h</header>
    <container>1</container>
+   <slots>
+    <signal>setOutputDir(QString)</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -294,5 +297,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>frame_grade_csv</sender>
+   <signal>setOutputDir(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>choose_output_dir(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>122</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>choose_output_dir(QString)</slot>
+ </slots>
 </ui>

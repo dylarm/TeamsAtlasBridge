@@ -121,6 +121,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.frame_grade_csv.windowIconTextChanged['QString'].connect(self.name_output_xlsx.setText)
+        self.frame_grade_csv.setOutputDir['QString'].connect(MainWindow.choose_output_dir)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

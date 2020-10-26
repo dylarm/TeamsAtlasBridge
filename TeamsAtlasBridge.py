@@ -34,7 +34,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             lambda: self._choose_file(INPUT_TEAMS_FILE)
         )
         self.button_process.clicked.connect(self._process_files)
-        self.button_output_dir.clicked.connect(self._choose_output_dir)
+        self.button_output_dir.clicked.connect(self.choose_output_dir)
         logging.debug("Finished setting up buttons.")
 
     def _process_files(self) -> None:
@@ -75,7 +75,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             logger.info(msg)
             QMessageBox.warning(self, "File(s) not loaded", msg)
 
-    def _choose_output_dir(self, chosen: str = "") -> None:
+    def choose_output_dir(self, chosen: str = "") -> None:
         logging.info("Setting output directory")
         if chosen and Path(chosen).is_dir():
             logging.debug(f"Output directory already 'chosen': {chosen}")
@@ -135,9 +135,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         elif file_type == INPUT_TEAMS_FILE:
             self.frame_grade_csv.file_path = file_path
             self.frame_grade_csv.process_drop()
-            if not self.text_output_dir.text():
-                logging.debug("Output directory not set yet. Doing so now...")
-                self._choose_output_dir(chosen=str(file_path.absolute().parent))
             logging.debug("Teams grade CSV file set")
 
 
