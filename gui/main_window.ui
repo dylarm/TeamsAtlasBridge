@@ -283,6 +283,7 @@
     </property>
     <addaction name="actionAbout_Teams_ATLAS_Bridge"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAbout_PyInstaller"/>
     <addaction name="separator"/>
     <addaction name="actionCheck_for_Updates"/>
    </widget>
@@ -323,6 +324,11 @@
   <action name="actionCheck_for_Updates">
    <property name="text">
     <string>Check for Updates</string>
+   </property>
+  </action>
+  <action name="actionAbout_PyInstaller">
+   <property name="text">
+    <string>About PyInstaller</string>
    </property>
   </action>
  </widget>
@@ -442,11 +448,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout_PyInstaller</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>about_pyinstaller()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>choose_output_dir(QString)</slot>
   <slot>about_qt()</slot>
   <slot>about_app()</slot>
   <slot>check_updates()</slot>
+  <slot>about_pyinstaller()</slot>
  </slots>
 </ui>

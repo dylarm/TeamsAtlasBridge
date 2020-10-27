@@ -260,6 +260,15 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def about_qt(self) -> None:
         QMessageBox.aboutQt(self, "About Qt")
 
+    def about_pyinstaller(self) -> None:
+        msg = (
+            f"<b><i>PyInstaller</i> freezes (packages) Python applications into stand-alone executables</b><br>"
+            f"under Windows, GNU/Linux, Mac OS X, FreeBSD, Solaris and AIX<br><br>"
+            f"Website: <a href='https://www.pyinstaller.org/index.html'>www.pyinstaller.org</a><br><br>"
+            f"© Copyright 2005–2019, PyInstaller Development Team"
+        )
+        QMessageBox.about(self, "About PyInstaller", msg)
+
 
 def setup_logging(
     output_file: Path = DEFAULT_LOG_FILE,
