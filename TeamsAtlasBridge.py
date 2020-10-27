@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox, QInputDialog
 
 import gui.main_window as mw
 import check_updates
@@ -112,10 +112,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             student_list=self.frame_student_xlsx.file_path,
             output=output_file,
         )
-        msg = (
-            f"Finished creating {self.frame_grade_csv.assignment_file_name}.xlsx"
-            f" at {self.text_output_dir.text()}"
-        )
+        msg = f"Finished creating {output_file.name} at {self.text_output_dir.text()}"
         logger.info(msg)
         QMessageBox.information(self, "All done", msg)
 
@@ -157,16 +154,25 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 logger.debug(f"Response: {response}")
                 if response == QMessageBox.RejectRole:
                     logger.info("Response: Rename file")
-                    # TODO: Create renaming dialog
+                    text, ok_pressed = QInputDialog.getText(
+                        self,
+                        title="Rename",
+                        label="New name:",
+                        text=output_file.name.rstrip(".xlsx"),
+                    )
+                    if ok_pressed:
+                        output_file = output_file.parent.joinpath(f"./{text}.xlsx")
+                    else:
+                        response = QMessageBox.NoRole
                 else:
                     pass  # Rewriting is automatic
                 if (
                     response == QMessageBox.RejectRole
                     or response == QMessageBox.YesRole
                 ):
-                    self.__actual_process()
+                    self.__actual_process(output_file=output_file)
             else:
-                self.__actual_process()
+                self.__actual_process(output_file=output_file)
         else:
             # Pop up an error
             msg = (
