@@ -78,16 +78,17 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         logger.info("Checking for new version...")
         ret: str = ""
         version, link = check_updates.get_latest_ver()
+        version_str = f"v{'.'.join(map(str,version))}"
         update_available = check_updates.update_available(latest_ver=version)
         if update_available:
-            ret = f"(Update: {version})"
-            logger.info(f"New version available: {version}")
+            ret = f"(Update: {version_str})"
+            logger.info(f"New version available: {version_str}")
             response = QMessageBox.question(
                 self,
                 "Update Available",
                 f"A new update is available!\n"
                 f"Current version: {VERSION}\n"
-                f"New version: {version}\n"
+                f"New version: {version_str}\n"
                 f"Go to download page?",
             )
             logger.debug(f"Response: {response}")
