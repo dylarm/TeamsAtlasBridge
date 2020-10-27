@@ -29,7 +29,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.__setup_buttons()
         self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
         version_label = QtWidgets.QLabel()
-        version_label.setText(f"Version: {VERSION} {self.__check_updates()}")
+        version_label.setText(f"Version: {VERSION} {self.check_updates(at_start=True)}")
         version_label.setFrameShape(QtWidgets.QFrame.StyledPanel)
         version_label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.statusbar.addPermanentWidget(version_label)
@@ -74,11 +74,12 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             f"(located at {file_name.parent})"
         )
 
-    def __check_updates(self) -> str:
+    def check_updates(self, at_start: bool = False) -> str:
         logger.info("Checking for new version...")
         ret: str = ""
         version, link = check_updates.get_latest_ver()
-        if check_updates.update_available(latest_ver=version):
+        update_available = check_updates.update_available(latest_ver=version)
+        if update_available:
             ret = f"(Update: {version})"
             logger.info(f"New version available: {version}")
             response = QMessageBox.question(
@@ -95,6 +96,13 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
                 QtGui.QDesktopServices.openUrl(QtCore.QUrl(link))
             else:
                 logger.info("Not going to update page.")
+        elif not at_start and not update_available:
+            logger.info(f"Already at latest version {VERSION}")
+            QMessageBox.information(
+                self,
+                "Check for Updates",
+                f"No update available.\nAlready running most recent version {VERSION}",
+            )
         return ret
 
     def __actual_process(self, output_file: Path) -> None:
@@ -230,6 +238,20 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             self.frame_grade_csv.file_path = file_path
             self.frame_grade_csv.process_drop()
             logging.debug("Teams grade CSV file set")
+
+    def about_app(self) -> None:
+        msg = (
+            f"<b>Bridging the disconnect between <i>MS Teams</i> and <i>ATLAS</i></b><br><br>"
+            f"Made in response to the 2020 COVID-19 pandemic and online school<br><br>"
+            f"Version {VERSION}<br><br>"
+            f"Copyright © 2020, Dylan Armitage<br>"
+            f"Licensed under the GNU General Public License, version 3<br>"
+            f"Source code hosted on <a href='https://github.com/dylarm/TeamsAtlasBridge'>GitHub</a>"
+        )  # Wow it's been forever since I've dealt with HTML tags
+        QMessageBox.about(self, "About TAB", msg)
+
+    def about_qt(self) -> None:
+        QMessageBox.aboutQt(self, "About Qt")
 
 
 def setup_logging(

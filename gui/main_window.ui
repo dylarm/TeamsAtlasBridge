@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Dylan Armitage</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -276,8 +277,54 @@
      <height>30</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_Teams_ATLAS_Bridge"/>
+    <addaction name="actionAbout_Qt"/>
+    <addaction name="separator"/>
+    <addaction name="actionCheck_for_Updates"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAbout_Teams_ATLAS_Bridge">
+   <property name="text">
+    <string>About Teams-ATLAS Bridge</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionCheck_for_Updates">
+   <property name="text">
+    <string>Check for Updates</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -290,6 +337,13 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>button_input_teams</tabstop>
+  <tabstop>button_input_students</tabstop>
+  <tabstop>button_output_dir</tabstop>
+  <tabstop>button_default_output_dir</tabstop>
+  <tabstop>button_process</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -303,8 +357,8 @@
      <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>186</x>
-     <y>147</y>
+     <x>187</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -324,8 +378,75 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout_Qt</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>about_qt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAbout_Teams_ATLAS_Bridge</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>about_app()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCheck_for_Updates</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>check_updates()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>choose_output_dir(QString)</slot>
+  <slot>about_qt()</slot>
+  <slot>about_app()</slot>
+  <slot>check_updates()</slot>
  </slots>
 </ui>
