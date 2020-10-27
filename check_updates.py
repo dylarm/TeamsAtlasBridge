@@ -1,7 +1,8 @@
 import logging
+from typing import Tuple, NewType
+
 import requests
 from requests.exceptions import HTTPError, ConnectionError, Timeout, RequestException
-from typing import Tuple, NewType, Union
 
 from constants import VERSION as CURRENT_VERSION
 

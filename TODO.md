@@ -7,6 +7,3 @@
     * Should the multiple files be output in a subdirectory, or just wherever the output single output file would go?
     * How to automatically detect that the file loaded contains multiple assignments vs just one?
 * Allow for scaling of grade - percentage (added 2020-10-20)
-* Allow changing of output file name - default vs custom? (added 2020-10-20)
-    * Will need to allow for notification of possibly overwriting currently existing file
-

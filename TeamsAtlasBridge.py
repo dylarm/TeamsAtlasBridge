@@ -1,17 +1,17 @@
 import logging
 import logging.config
-import sys
 import signal
+import sys
 import traceback
-from io import StringIO
 from datetime import datetime
+from io import StringIO
 from pathlib import Path
 
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox, QInputDialog
 
-import gui.main_window as mw
 import check_updates
+import gui.main_window as mw
 from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
 from process import generate_output
 
