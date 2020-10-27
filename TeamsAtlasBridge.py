@@ -27,7 +27,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.__setup_buttons()
-        self.setWindowTitle(f"{self.windowTitle()} ({VERSION})")
         version_label = QtWidgets.QLabel()
         version_label.setText(f"Version: {VERSION} {self.check_updates(at_start=True)}")
         version_label.setFrameShape(QtWidgets.QFrame.StyledPanel)
