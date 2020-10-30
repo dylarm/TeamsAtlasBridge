@@ -36,236 +36,388 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>361</width>
-      <height>551</height>
+      <x>0</x>
+      <y>0</y>
+      <width>381</width>
+      <height>561</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QFrameDragDrop" name="frame_student_xlsx">
-       <property name="acceptDrops">
-        <bool>true</bool>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <widget class="QLabel" name="label_input_students">
-        <property name="geometry">
-         <rect>
-          <x>6</x>
-          <y>-1</y>
-          <width>161</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Student Logins XLSX</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="button_input_students">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>40</y>
-          <width>171</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>6</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>(drag and drop, or click, to import)</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="QFrame" name="frame_output_xlsx">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <widget class="QLabel" name="label_output_xlsx">
-        <property name="geometry">
-         <rect>
-          <x>6</x>
-          <y>10</y>
-          <width>341</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Output XLSX File</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="name_output_xlsx">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>341</width>
-          <height>151</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>7</pointsize>
-         </font>
-        </property>
-        <property name="mouseTracking">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>(add a file from Teams first)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <zorder>name_output_xlsx</zorder>
-       <zorder>label_output_xlsx</zorder>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QFrameDragDrop" name="frame_grade_csv">
-       <property name="acceptDrops">
-        <bool>true</bool>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <widget class="QPushButton" name="button_input_teams">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>37</y>
-          <width>179</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>6</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>(drag and drop, or click, to import)</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_input_teams">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>179</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Teams CSV</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="2">
-      <widget class="QPushButton" name="button_process">
-       <property name="text">
-        <string>Output matched file</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QFrame" name="frame_output_dir">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <widget class="QWidget" name="verticalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>-1</x>
-          <y>3</y>
-          <width>361</width>
-          <height>161</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLabel" name="label_output_dir">
-           <property name="text">
-            <string>Output Folder</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="text_output_dir">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab_grades">
+     <attribute name="title">
+      <string>Grades</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>371</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1">
+        <widget class="QFrameDragDrop" name="frame_student_xlsx">
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <widget class="QLabel" name="label_input_students">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>180</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Student Logins XLSX</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="button_input_students">
+          <property name="geometry">
+           <rect>
+            <x>8</x>
+            <y>40</y>
+            <width>170</width>
+            <height>100</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>6</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>(drag and drop, or click, to import)</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QFrame" name="frame_output_xlsx">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <widget class="QLabel" name="label_output_xlsx">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>370</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Output XLSX File</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="name_output_xlsx">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>350</width>
+            <height>100</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>7</pointsize>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>(add a file from Teams first)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <zorder>name_output_xlsx</zorder>
+         <zorder>label_output_xlsx</zorder>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QFrameDragDrop" name="frame_grade_csv">
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <widget class="QPushButton" name="button_input_teams">
+          <property name="geometry">
+           <rect>
+            <x>8</x>
+            <y>40</y>
+            <width>170</width>
+            <height>100</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>6</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>(drag and drop, or click, to import)</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_input_teams">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>180</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Teams CSV</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QPushButton" name="button_process">
+         <property name="text">
+          <string>Output matched file</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QFrame" name="frame_output_dir">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <widget class="QWidget" name="verticalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>3</y>
+            <width>351</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QPushButton" name="button_output_dir">
+            <widget class="QLabel" name="label_output_dir">
              <property name="text">
-              <string>Change Output Folder</string>
+              <string>Output Folder</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="button_default_output_dir">
+            <widget class="QLabel" name="text_output_dir">
              <property name="text">
-              <string>Default Output Folder</string>
+              <string/>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
              </property>
             </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QPushButton" name="button_output_dir">
+               <property name="text">
+                <string>Change Output Folder</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="button_default_output_dir">
+               <property name="text">
+                <string>Default Output Folder</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_attendance">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <attribute name="title">
+      <string>Attendance</string>
+     </attribute>
+     <widget class="QWidget" name="verticalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>-1</y>
+        <width>371</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QFrameDragDrop" name="frame_teams_att">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <widget class="QLabel" name="label_input_teams_att">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>180</width>
+              <height>40</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Teams Attendance</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="button_input_teams_att">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>40</y>
+              <width>180</width>
+              <height>100</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>6</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>(drag and drop, or click, to import)</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrameDragDrop" name="frame_student_xlsx_att">
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <widget class="QLabel" name="label_input_students_att">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>180</width>
+              <height>40</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Student Logins XLSX</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="button_input_students_att">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>40</y>
+              <width>180</width>
+              <height>100</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>6</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>(drag and drop, or click, to import)</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </widget>
          </item>
         </layout>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
