@@ -3,6 +3,8 @@ from pathlib import Path
 
 from constants import VALID_EXTENSIONS
 
+logger = logging.getLogger(__name__)
+
 
 def add_method(cls):
     """
@@ -24,9 +26,11 @@ def add_method(cls):
 
 
 def valid_extension(file: Path) -> bool:
+    logger.debug(f"Checking extension of {file.name} for validity")
     return bool([ext for ext in VALID_EXTENSIONS if (ext in file.name)])
 
 
-def detect_file_type(file: Path) -> None:
+def detect_file_type(file: Path) -> int:
     """Determine what kind of file is being uploaded, supporting multiple files"""
+    logger.debug(f"Checking file {file.name} for type")
     pass
