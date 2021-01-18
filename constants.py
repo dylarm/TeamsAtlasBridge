@@ -4,9 +4,8 @@ from typing import Dict, List, Union
 
 VERSION: str = "v1.1.0"
 
-INPUT_TEAMS_FILE: int = 1
-INPUT_STUDENT_FILE: int = 2
-OUTPUT_XLSX: int = 3
+INPUT_FILES: Dict[str, int] = {"TEAMS_FILE": 1, "STUDENT_FILE": 2, "FORMS_FILE": 4}
+OUTPUT_FILES: Dict[str, int] = {"OUTPUT_XLSX": 3}
 VALID_EXTENSIONS: List[str] = ["xlsx", "xls", "csv"]
 
 # Frame names

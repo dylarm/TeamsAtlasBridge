@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox, QInputDial
 
 import check_updates
 import gui.main_window_ref as mw
-from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
+from constants import INPUT_FILES, VERSION
 from process import generate_output
 
 # Copyright © 2020, Dylan Armitage. Some rights reserved.
@@ -42,10 +42,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def __setup_buttons(self) -> None:
         logging.debug("Setting up buttons...")
         self.button_input_students.clicked.connect(
-            lambda: self._choose_file(INPUT_STUDENT_FILE)
+            lambda: self._choose_file(INPUT_FILES["STUDENT_FILE"])
         )
         self.button_input_teams.clicked.connect(
-            lambda: self._choose_file(INPUT_TEAMS_FILE)
+            lambda: self._choose_file(INPUT_FILES["TEAMS_FILE"])
         )
         self.button_process.clicked.connect(self._process_files)
         self.button_output_dir.clicked.connect(self.choose_output_dir)
@@ -212,11 +212,11 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
         file_filter: str = "All files (*.*)"
         initial_filter = file_filter
-        if file_type == INPUT_STUDENT_FILE:
+        if file_type == INPUT_FILES["STUDENT_FILE"]:
             initial_filter = "Excel Workbook (*.xlsx)"
             file_filter += f";;{initial_filter}"
             file_type_text = "Student Login"
-        elif file_type == INPUT_TEAMS_FILE:
+        elif file_type == INPUT_FILES["TEAMS_FILE"]:
             initial_filter = "CSV File (*.csv)"
             file_filter += f";;{initial_filter}"
             file_type_text = "Teams Grade CSV"
@@ -239,11 +239,11 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             )[0]
         )
         logging.info(f"File path: {file_path}")
-        if file_type == INPUT_STUDENT_FILE:
+        if file_type == INPUT_FILES["STUDENT_FILE"]:
             self.frame_student_xlsx.file_path = file_path
             self.frame_student_xlsx.process_drop()
             logging.debug("Student Login file set")
-        elif file_type == INPUT_TEAMS_FILE:
+        elif file_type == INPUT_FILES["TEAMS_FILE"]:
             self.frame_grade_input.file_path = file_path
             self.frame_grade_input.process_drop()
             logging.debug("Teams grade CSV file set")
