@@ -1,7 +1,5 @@
-import io
 import logging
 import logging.config
-import signal
 import sys
 import traceback
 from datetime import datetime
@@ -36,7 +34,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         version_label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.statusbar.addPermanentWidget(version_label)
         self.error_dialog = QtWidgets.QErrorMessage()  # For use later, if needed
-        self.__setup_signal_capture()
         logger.info("Main window set up")
 
     def __setup_buttons(self) -> None:
@@ -53,28 +50,6 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             lambda: self.choose_output_dir(str(self.frame_grade_input.file_path.parent))
         )
         logging.debug("Finished setting up buttons.")
-
-    def __setup_signal_capture(self) -> None:
-        logger.debug("Setting up signal capture")
-        signal.signal(signal.SIGABRT, self.__signal_handler)
-
-    def __signal_handler(self, signal_num: signal.Signals, frame) -> None:
-        frame_print = StringIO()
-        traceback.print_stack(frame, file=frame_print)
-        file_name = Path(f"./TAB Error {datetime.now()}.log").absolute()
-        with open(file_name, "a") as f:
-            f.write(frame_print.getvalue())
-        logger.error(
-            f"Received signal {signal_num}, {signal.strsignal(signal_num)}\n"
-            f"Frame: {frame}\n"
-            f"Traceback:\n"
-            f"{frame_print.getvalue()}"
-        )
-        self.error_dialog.showMessage(
-            f"Error: received signal {signal_num}, {signal.strsignal(signal_num)}. \n"
-            f"Please send '{file_name.name}' to maintainer "
-            f"(located at {file_name.parent})"
-        )
 
     def check_updates(self, at_start: bool = False) -> str:
         logger.info("Checking for new version...")
@@ -279,7 +254,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 def setup_logging(
     output_file: Path = DEFAULT_LOG_FILE,
     to_file: bool = False,
-    default_level=logging.INFO,
+    default_level=logging.DEBUG,
     str_format: str = "%(asctime)s: [%(name)s/%(levelname)s] %(message)s",
 ) -> None:
     """Setup logging configuration"""
@@ -312,7 +287,7 @@ def exception_hook(
         f"Please report the problem via email to {__author__} at {__email__}, "
         f"attaching the file {log_file}"
     )
-    tbinfofile = io.StringIO()
+    tbinfofile = StringIO()
     traceback.print_tb(tracebackobj, None, tbinfofile)
     tbinfofile.seek(0)  # Reset to beginning
     tbinfo = tbinfofile.read()
