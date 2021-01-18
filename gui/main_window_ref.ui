@@ -234,7 +234,7 @@
            <x>0</x>
            <y>0</y>
            <width>371</width>
-           <height>191</height>
+           <height>161</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -275,7 +275,7 @@
                <x>10</x>
                <y>40</y>
                <width>350</width>
-               <height>100</height>
+               <height>71</height>
               </rect>
              </property>
              <property name="font">
@@ -334,6 +334,8 @@
     <addaction name="actionAbout_PyInstaller"/>
     <addaction name="separator"/>
     <addaction name="actionCheck_for_Updates"/>
+    <addaction name="separator"/>
+    <addaction name="actionDebugging_Options"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -377,6 +379,11 @@
   <action name="actionAbout_PyInstaller">
    <property name="text">
     <string>About PyInstaller</string>
+   </property>
+  </action>
+  <action name="actionDebugging_Options">
+   <property name="text">
+    <string>Debugging Options</string>
    </property>
   </action>
  </widget>
@@ -495,6 +502,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDebugging_Options</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_logging()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <designerdata>
   <property name="gridDeltaX">
@@ -519,5 +542,6 @@
   <slot>about_app()</slot>
   <slot>check_updates()</slot>
   <slot>about_pyinstaller()</slot>
+  <slot>update_logging()</slot>
  </slots>
 </ui>

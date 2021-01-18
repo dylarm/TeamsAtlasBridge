@@ -271,6 +271,10 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         )
         QMessageBox.about(self, "About PyInstaller", msg)
 
+    def update_logging(self) -> None:
+        logger.debug("Updating logging")
+        pass
+
 
 def setup_logging(
     output_file: Path = DEFAULT_LOG_FILE,
