@@ -25,3 +25,8 @@ def add_method(cls):
 
 def valid_extension(file: Path) -> bool:
     return bool([ext for ext in VALID_EXTENSIONS if (ext in file.name)])
+
+
+def detect_file_type(file: Path) -> None:
+    """Determine what kind of file is being uploaded, supporting multiple files"""
+    pass
