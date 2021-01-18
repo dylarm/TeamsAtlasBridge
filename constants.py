@@ -10,7 +10,7 @@ OUTPUT_XLSX: int = 3
 VALID_EXTENSIONS: List[str] = ["xlsx", "xls", "csv"]
 
 # Frame names
-INPUT_TEAMS_FRAME: str = "frame_grade_csv"
+INPUT_TEAMS_FRAME: str = "frame_grade_input"
 INPUT_STUDENT_FRAME: str = "frame_student_xlsx"
 OUTPUT_XLSX_FRAME: str = "frame_output_xlsx"
 
