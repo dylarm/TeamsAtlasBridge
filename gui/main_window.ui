@@ -287,6 +287,141 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_participation">
+     <attribute name="title">
+      <string>Participation</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>-1</y>
+        <width>371</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QFrameDragDrop" name="frame_forms_xlsx">
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <widget class="QLabel" name="label_input_students_forms">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>180</width>
+              <height>40</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>MS Forms XLSX</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="button_input_students_forms">
+            <property name="geometry">
+             <rect>
+              <x>8</x>
+              <y>40</y>
+              <width>170</width>
+              <height>100</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>6</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>(drag and drop, or click, to import)</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrameDragDrop" name="frame_student_xlsx_part">
+           <property name="acceptDrops">
+            <bool>true</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <widget class="QLabel" name="label_input_students_part">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>180</width>
+              <height>40</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Student Logins XLSX</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="button_input_students_part">
+            <property name="geometry">
+             <rect>
+              <x>8</x>
+              <y>40</y>
+              <width>170</width>
+              <height>100</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>6</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>(drag and drop, or click, to import)</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_cb_periods">
+           <property name="text">
+            <string>Choose period:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cb_periods"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_attendance">
      <property name="enabled">
       <bool>false</bool>
