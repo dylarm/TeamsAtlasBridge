@@ -1,3 +1,4 @@
+import io
 import logging
 import logging.config
 import signal
@@ -17,6 +18,8 @@ from process import generate_output
 
 # Copyright © 2020, Dylan Armitage. Some rights reserved.
 # This work is licensed under the GNU General Public License, version 3.
+__author__ = "Dylan Armitage"
+__email__ = "dylanjarmitage@gmail.com"
 
 DEFAULT_LOG_FILE: Path = Path(f"./teams-atlas_bridge {datetime.now()}.log").absolute()
 
@@ -47,7 +50,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
         self.button_process.clicked.connect(self._process_files)
         self.button_output_dir.clicked.connect(self.choose_output_dir)
         self.button_default_output_dir.clicked.connect(
-            lambda: self.choose_output_dir(str(self.frame_grade_csv.file_path.parent))
+            lambda: self.choose_output_dir(str(self.frame_grade_input.file_path.parent))
         )
         logging.debug("Finished setting up buttons.")
 
@@ -107,7 +110,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
 
     def __actual_process(self, output_file: Path) -> None:
         generate_output(
-            assignment_file=self.frame_grade_csv.file_path,
+            assignment_file=self.frame_grade_input.file_path,
             student_list=self.frame_student_xlsx.file_path,
             output=output_file,
         )
@@ -118,19 +121,19 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
     def _process_files(self) -> None:
         logging.info("Processing files")
         if (
-            self.frame_grade_csv.file_path.is_file()
+            self.frame_grade_input.file_path.is_file()
             and self.frame_student_xlsx.file_path.is_file()
         ):
             logging.info("Both files are selected")
             logging.debug(
-                f"self.frame_grade_csv.file_path: {self.frame_grade_csv.file_path}\n"
-                f"self.frame_grade_csv.assignment_file_name: {self.frame_grade_csv.assignment_file_name}\n"
+                f"self.frame_grade_input.file_path: {self.frame_grade_input.file_path}\n"
+                f"self.frame_grade_input.assignment_file_name: {self.frame_grade_input.assignment_file_name}\n"
                 f"self.frame_student_xlsx.file_path: {self.frame_student_xlsx.file_path}\n"
-                f"Output: {Path(self.text_output_dir.text()).joinpath(self.frame_grade_csv.assignment_file_name)}.xlsx"
+                f"Output: {Path(self.text_output_dir.text()).joinpath(self.frame_grade_input.assignment_file_name)}.xlsx"
             )
             # Both files loaded, good
             output_file = Path(self.text_output_dir.text()).joinpath(
-                f"{self.frame_grade_csv.assignment_file_name}.xlsx"
+                f"{self.frame_grade_input.assignment_file_name}.xlsx"
             )
             if output_file.exists():
                 logger.info("Output File already exists!")
@@ -177,7 +180,7 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             msg = (
                 f"One of both of the files have not been loaded.\n"
                 f"Currently loaded files:\n\n"
-                f"Teams CSV -- {self.frame_grade_csv.file_path.name}\n\n"
+                f"Teams CSV -- {self.frame_grade_input.file_path.name}\n\n"
                 f"Student Logins -- {self.frame_student_xlsx.file_path.name}"
             )
             logger.info(msg)
@@ -241,8 +244,8 @@ class MainWindow(QtWidgets.QMainWindow, mw.Ui_MainWindow):
             self.frame_student_xlsx.process_drop()
             logging.debug("Student Login file set")
         elif file_type == INPUT_TEAMS_FILE:
-            self.frame_grade_csv.file_path = file_path
-            self.frame_grade_csv.process_drop()
+            self.frame_grade_input.file_path = file_path
+            self.frame_grade_input.process_drop()
             logging.debug("Teams grade CSV file set")
 
     def about_app(self) -> None:
@@ -293,6 +296,38 @@ def main() -> None:
     logger.debug("Executing app...")
     app.exec_()
 
+def exception_hook(
+    exctype: Exception, excvalue: Exception, tracebackobj: Exception
+) -> None:
+    separator = "-" * 80
+    curr_time = str(datetime.now())
+    log_file = f"TAB_crash_{curr_time}.log"
+    notice = (
+        f"An error occurred somewhere. "
+        f"Please report the problem via email to {__author__} at {__email__}, "
+        f"attaching the file {log_file}"
+    )
+    tbinfofile = io.StringIO()
+    traceback.print_tb(tracebackobj, None, tbinfofile)
+    tbinfofile.seek(0)  # Reset to beginning
+    tbinfo = tbinfofile.read()
+    error_msg = f"{exctype}:\n{excvalue}"
+    sections = [notice, separator, curr_time, separator, error_msg, separator, tbinfo]
+    msg = "\n".join(sections)
+    with open(log_file, "w") as f:
+        try:
+            f.write(msg)
+            f.write(VERSION)
+        except IOError:
+            pass
+    errorbox = QMessageBox()
+    errorbox.setIcon(QMessageBox.Critical)
+    errorbox.setText(notice)
+    errorbox.setDetailedText(msg)
+    errorbox.exec()
+
+
+sys.excepthook = exception_hook
 
 setup_logging(to_file=False)
 logger = logging.getLogger(__name__)
