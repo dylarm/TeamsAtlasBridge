@@ -12,7 +12,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox, QInputDialog
 
 import check_updates
-import gui.main_window as mw
+import gui.main_window_ref as mw
 from constants import INPUT_TEAMS_FILE, INPUT_STUDENT_FILE, VERSION
 from process import generate_output
 
@@ -295,6 +295,7 @@ def main() -> None:
     form.show()
     logger.debug("Executing app...")
     app.exec_()
+
 
 def exception_hook(
     exctype: Exception, excvalue: Exception, tracebackobj: Exception
